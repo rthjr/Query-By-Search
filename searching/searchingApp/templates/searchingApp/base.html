@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form  action="{% url 'search' %}">
+        <input type="text" name="q" placeholder="Enter your search term" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <h2>Results for "{{ query }}":</h2>
+        {% if results %}
+            <ul>
+                {% for goal in results %}
+                    <li>
+                        <a href="{{ goal.url }}">{{ goal.title }}</a>
+                        {% if goal.sub %}
+                            - {{ goal.sub }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
